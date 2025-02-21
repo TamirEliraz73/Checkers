@@ -1,4 +1,4 @@
-package com.nls.base;
+package com.nls.types;
 
 import com.badlogic.gdx.graphics.Color;
 import lombok.NonNull;

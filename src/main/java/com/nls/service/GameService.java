@@ -1,7 +1,7 @@
 package com.nls.service;
 
 import com.badlogic.gdx.utils.Timer;
-import com.nls.base.Player;
+import com.nls.types.Player;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.experimental.Accessors;

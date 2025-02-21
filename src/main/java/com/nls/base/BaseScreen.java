@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.nls.game.board.Board;
+import com.nls.types.BaseScreenType;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.experimental.Accessors;

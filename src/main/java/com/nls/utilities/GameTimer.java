@@ -1,4 +1,4 @@
-package com.nls.base;
+package com.nls.utilities;
 
 import com.badlogic.gdx.utils.TimeUtils;
 

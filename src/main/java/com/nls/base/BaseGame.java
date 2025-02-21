@@ -2,6 +2,7 @@ package com.nls.base;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.nls.types.BaseScreenType;
 import lombok.Getter;
 
 @Getter

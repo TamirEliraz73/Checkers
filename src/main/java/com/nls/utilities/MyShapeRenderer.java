@@ -1,4 +1,4 @@
-package com.nls.base;
+package com.nls.utilities;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;

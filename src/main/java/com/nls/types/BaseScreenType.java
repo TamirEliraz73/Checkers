@@ -1,4 +1,4 @@
-package com.nls.base;
+package com.nls.types;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.utils.viewport.StretchViewport;

@@ -4,6 +4,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Null;
+import com.nls.exceptions.SquareNotFoundException;
 import com.nls.game.board.Board;
 import com.nls.game.board.Square;
 import com.nls.game.board.SquareFactory;

@@ -1,4 +1,4 @@
-package com.nls.base;
+package com.nls.types;
 
 public enum Direction {
     UP, DOWN, LEFT, RIGHT,
