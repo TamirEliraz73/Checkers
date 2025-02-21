@@ -1,8 +1,10 @@
 package com.nls.game.board;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Null;
+import com.nls.service.SettingsService;
 import com.nls.types.Direction;
 import com.nls.utilities.MyShapeRenderer;
 import com.nls.types.Vector2R;
@@ -10,6 +12,8 @@ import com.nls.service.BoardListener;
 import com.nls.service.BoardService;
 import lombok.Getter;
 import lombok.NonNull;
+
+import java.util.Random;
 
 //@AllArgsConstructor
 public class Square extends Group implements BoardListener {// implements MyInputAdapter {
@@ -49,6 +53,10 @@ public class Square extends Group implements BoardListener {// implements MyInpu
 
     @Override
     public boolean onSquareHover() {
+//        Random random = new Random();
+//        SettingsService.getInstance().setBackgroundColor(new Color(random.nextFloat(), random.nextFloat(), random.nextFloat(), random.nextFloat()));
+//        SettingsService.getInstance().setPlayer2Color(new Color(random.nextFloat(), random.nextFloat(), random.nextFloat(), 1));
+//        SettingsService.getInstance().setSquareColor(new Color(random.nextFloat(), random.nextFloat(), random.nextFloat(), 1));
         if ( hasChecker() ) getChecker().onSquareHover();
         return BoardListener.super.onSquareHover();
     }

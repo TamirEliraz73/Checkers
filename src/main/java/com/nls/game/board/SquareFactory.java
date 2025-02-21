@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.nls.service.SettingsService;
 import com.nls.types.Player;
 import com.nls.types.Vector2R;
 import lombok.NonNull;
@@ -11,11 +12,12 @@ import lombok.NonNull;
 public class SquareFactory {
     public static final float SQUARE_WIDTH = Gdx.graphics.getWidth() / 8f;
     public static final float SQUARE_HEIGHT = Gdx.graphics.getHeight() / 8f;
+    private static final boolean START_BOTTOM_LEFT = false;
     private final Vector2 _pos = new Vector2();
 
     private SquareFactory() {
         _pos.setZero();
-        _next();
+        doFirstNext();
     }
 
     private static SquareFactory _instance;
@@ -43,14 +45,22 @@ public class SquareFactory {
                 _pos.x++;
             }
         }
-        while ( hasNext() && _pos.x % 2 == _pos.y % 2 );
+        while ( hasNext() && condition() );
+    }
+
+    private boolean condition() {
+        return START_BOTTOM_LEFT ^ (_pos.x % 2 == _pos.y % 2);
+    }
+
+    private void doFirstNext() {
+        if (condition() && !START_BOTTOM_LEFT) _next();
     }
 
     public @NonNull Square next() {
         return new Square(getNextSquare()) {{
             setPosition(col() * SQUARE_WIDTH, row() * SQUARE_HEIGHT);
             setSize(SQUARE_WIDTH, SQUARE_HEIGHT);
-            setColor(Color.BLACK);
+            setColor(SettingsService.getInstance().getSquareColor());
             setTouchable(Touchable.enabled);
             if ( this.row() < 3 ) addActor(new Checker(this, Player.PLAYER1));
             if ( this.row() > 4 ) addActor(new Checker(this, Player.PLAYER2));
@@ -58,10 +68,6 @@ public class SquareFactory {
     }
 
     public boolean hasNext() {
-//        System.out.println(_pos);
-//        if ( _pos.y == 8 ) {
-//            System.out.println();
-//        }
         return _pos.y < 8;
     }
 }

@@ -7,9 +7,11 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.nls.game.board.Board;
+import com.nls.service.SettingsService;
 import com.nls.types.BaseScreenType;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
 import lombok.experimental.Accessors;
 
 @Accessors(chain = true)
@@ -18,33 +20,19 @@ public class BaseScreen implements Screen {
     public static final float SCREEN_HEIGHT = Gdx.graphics.getHeight();
     private final Viewport viewport;
     @Getter
-    private Color backgroundColor;
-    @Getter
     private final Board board;
-
-    public BaseScreen setBackgroundColor(float red, float green, float blue) {
-        return this.setBackgroundColor(red, green, blue, 1.0f);
-    }
-
-    public BaseScreen setBackgroundColor(float red, float green, float blue, float alpha) {
-        return this.setBackgroundColor(new Color(red, green, blue, alpha));
-    }
-
-    public BaseScreen setBackgroundColor(String hex) { return this.setBackgroundColor(Color.valueOf(hex)); }
-
-    public BaseScreen setBackgroundColor(Color color) {
-        this.backgroundColor = color;
-        return this;
-    }
-
+    @Getter
+    @Setter
+    private Color backgroundColor;
     public BaseScreen(@NonNull BaseScreenType type, @NonNull Camera camera) {
         this(type, SCREEN_WIDTH, SCREEN_HEIGHT, camera);
     }
 
     public BaseScreen(@NonNull BaseScreenType type, float width, float height, Camera camera) {
         this.viewport = type.getViewport(width, height, camera);
-        this.backgroundColor = Color.WHITE;
         this.board = new Board(this.viewport);
+        this.backgroundColor = SettingsService.getInstance().getBackgroundColor();
+        SettingsService.getInstance().setScreen(this);
     }
 
     @Override

@@ -48,16 +48,16 @@ public class Board extends Group implements BoardListener {
         return squaresMap.containsKey(new Vector2R(row, col));
     }
     public @NonNull Array<Square> getSquares() {
-        if ( squaresArray.size != getStage().getActors().size ) {
-            squaresArray.clear();
-            squaresArray.clear();
-            for ( Actor actor : getStage().getActors() ) {
-                if ( actor instanceof Square ) {
-                    squaresArray.add(( Square ) actor);
-                    squaresMap.put(new Vector2R((( Square ) actor).row(), (( Square ) actor).col()), ( Square ) actor);
-                }
-            }
-        }
+//        if ( squaresArray.size != getStage().getActors().size ) {
+//            squaresArray.clear();
+//            squaresMap.clear();
+//            for ( Actor actor : getStage().getActors() ) {
+//                if ( actor instanceof Square ) {
+//                    squaresArray.add(( Square ) actor);
+//                    squaresMap.put(new Vector2R((( Square ) actor).row(), (( Square ) actor).col()), ( Square ) actor);
+//                }
+//            }
+//        }
         return squaresArray;
     }
 
