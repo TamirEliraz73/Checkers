@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    libgdxVersion = '1.13.1'
+    lombokVersion = '1.18.30'
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    implementation "com.badlogicgames.gdx:gdx:$libgdxVersion"
+    implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$libgdxVersion"
+    implementation "com.badlogicgames.gdx:gdx-platform:$libgdxVersion:natives-desktop"
+    implementation "com.badlogicgames.gdx:gdx-box2d:$libgdxVersion"
+    implementation "com.badlogicgames.gdx:gdx-tools:$libgdxVersion"
+
+    implementation "org.projectlombok:lombok:$lombokVersion"
+    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+}
+
+test {
+    useJUnitPlatform()
+}
