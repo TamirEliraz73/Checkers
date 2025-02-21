@@ -9,8 +9,8 @@ import com.nls.base.Vector2R;
 import lombok.NonNull;
 
 public class SquareFactory {
-    private static final float SQUARE_WIDTH = Gdx.graphics.getWidth() / 8f;
-    private static final float SQUARE_HEIGHT = Gdx.graphics.getHeight() / 8f;
+    public static final float SQUARE_WIDTH = Gdx.graphics.getWidth() / 8f;
+    public static final float SQUARE_HEIGHT = Gdx.graphics.getHeight() / 8f;
     private final Vector2 _pos = new Vector2();
 
     private SquareFactory() {

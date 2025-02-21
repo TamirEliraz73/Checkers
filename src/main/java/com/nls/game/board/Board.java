@@ -1,7 +1,5 @@
 package com.nls.game.board;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -25,20 +23,17 @@ public class Board extends Group implements BoardListener {
         this.setStage(new MyStage(viewport));
         squaresArray = new Array<>();
         squaresMap = new HashMap<>();
-        InputMultiplexer inputMultiplexer = new InputMultiplexer();
-        inputMultiplexer.addProcessor(getStage());
         getStage().addActor(this);
+
+        BoardService.getInstance(this); // init
         SquareFactory factory = SquareFactory.getInstance(true);
         while ( factory.hasNext() ) {
             Square square = factory.next();
             addActor(square);
             squaresArray.add(square);
             squaresMap.put(square.getPositionInBoard(), square);
-            inputMultiplexer.addProcessor(square);
         }
-        Gdx.input.setInputProcessor(inputMultiplexer);
 
-        BoardService.getInstance().registerSquareTouchedListener(this);
         GameService.getInstance(); // init
     }
 
@@ -49,7 +44,9 @@ public class Board extends Group implements BoardListener {
         }
         return square;
     }
-
+    public boolean hasSquare(int row, int col) {
+        return squaresMap.containsKey(new Vector2R(row, col));
+    }
     public @NonNull Array<Square> getSquares() {
         if ( squaresArray.size != getStage().getActors().size ) {
             squaresArray.clear();
@@ -72,11 +69,5 @@ public class Board extends Group implements BoardListener {
     public void update(float dt) {
         this.getStage().act(dt);
         this.getStage().draw();
-    }
-
-    @Override
-    public boolean onSquareTouched(Square square, int button) {
-        System.out.print("\rtouched button " + button + " on " + square);
-        return BoardListener.super.onSquareTouched(square, button);
     }
 }

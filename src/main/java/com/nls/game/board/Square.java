@@ -1,23 +1,28 @@
 package com.nls.game.board;
 
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.nls.base.MyInputAdapter;
+import com.badlogic.gdx.utils.Null;
+import com.nls.base.Direction;
 import com.nls.base.MyShapeRenderer;
 import com.nls.base.Vector2R;
+import com.nls.service.BoardListener;
 import com.nls.service.BoardService;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;
 
-@AllArgsConstructor
-public class Square extends Group implements MyInputAdapter {
+//@AllArgsConstructor
+public class Square extends Group implements BoardListener {// implements MyInputAdapter {
     @Getter
     private final Vector2R positionInBoard;
     public static final MyShapeRenderer shapeRenderer = new MyShapeRenderer();
 
     public Square(int row, int col) { this(new Vector2R(row, col)); }
+
+    public Square(@NonNull Vector2R position) {
+        this.positionInBoard = position;
+//        BoardService.getInstance().registerAnySquareHoverListener(this);
+    }
 
     public int row() { return getPositionInBoard().row(); }
 
@@ -27,28 +32,6 @@ public class Square extends Group implements MyInputAdapter {
     public void draw(Batch batch, float parentAlpha) {
         shapeRenderer.drawRect(this, batch);
         super.draw(batch, parentAlpha);
-    }
-
-    public boolean hit(float screenX, float screenY) { return hit(this, screenX, screenY); }
-
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        if ( !isTouchable() ) return false;
-        if ( isMouse(pointer) && button == Input.Buttons.LEFT && hit(screenX, screenY) ) {
-            BoardService.getInstance().notifySquareTouched(this, button);
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public boolean mouseMoved(int screenX, int screenY) {
-        if ( !isTouchable() ) return false;
-        if ( hit(screenX, screenY) ) {
-            BoardService.getInstance().notifySquareHover(this);
-            return true;
-        }
-        return false;
     }
 
     public boolean hasChecker() { return this.hasChildren(); }
@@ -62,5 +45,37 @@ public class Square extends Group implements MyInputAdapter {
         if ( hasChecker() ) sb.append("has ").append(getChecker()).append(".");
         else sb.append("does not have Checker.");
         return sb.toString();
+    }
+
+    @Override
+    public boolean onSquareHover() {
+        if ( hasChecker() ) getChecker().onSquareHover();
+        return BoardListener.super.onSquareHover();
+    }
+
+    public @Null Square getNeighbor(@NonNull Direction direction) {
+        Board board = BoardService.getInstance().getBoard();
+        int _row = getPositionInBoard().row();
+        int _col = getPositionInBoard().col();
+        switch ( direction ) {
+            case UP_LEFT -> {
+                _row++;
+                _col--;
+            }
+            case UP_RIGHT -> {
+                _row++;
+                _col++;
+            }
+            case DOWN_LEFT -> {
+                _row--;
+                _col--;
+            }
+            case DOWN_RIGHT -> {
+                _row--;
+                _col++;
+            }
+            default -> throw new IllegalStateException("Unexpected value: " + direction);
+        }
+        return board.hasSquare(_row, _col) ? board.getSquare(_row, _col) : null;
     }
 }

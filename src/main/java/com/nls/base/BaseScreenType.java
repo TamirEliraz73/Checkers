@@ -1,7 +1,6 @@
 package com.nls.base;
 
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import lombok.NonNull;
